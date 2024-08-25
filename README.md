@@ -4,6 +4,9 @@ https://www.python.org/downloads/release/python-3810/
 chọn phiên bản và cài
 => nhớ tích vào thêm environment biến trong khi cài đặt
 
+sau đó cài gói:
+pip install selenium
+pip install webdriver_manager
 
 Bước 2: down chromedriver để điều khiển web
 check phiên bản chrome hiện tại:
@@ -16,7 +19,6 @@ Thì thay phiên bản vào đường dẫn sau:
 - Đối với window:
 
 https://storage.googleapis.com/chrome-for-testing-public/127.0.6533.120/win64/chromedriver-win64.zip
-pip install selenium
 
 - đối với Linux:
 https://storage.googleapis.com/chrome-for-testing-public/127.0.6533.120/linux64/chromedriver-linux64.zip

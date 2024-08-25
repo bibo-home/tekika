@@ -1,3 +1,4 @@
+import platform
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
@@ -35,16 +36,23 @@ class WebDriverLibrary:
         print ("init Options")
         options = webdriver.ChromeOptions()
         service = Service(self.path_chrome_driver)
-        options.add_argument("user-data-dir=" + self.chrome_profile_path)
+        #options.add_argument("user-data-dir=" + self.chrome_profile_path)
         options.add_argument("start-maximized")  # Mở trình duyệt ở chế độ toàn màn hình
         options.add_argument("--no-sandbox")  # Bỏ qua mô hình bảo mật của hệ điều hành
         
         options.add_argument("--disable-dev-shm-usage")  # Khắc phục vấn đề tài nguyên hạn chế
-        options.add_argument("--disable-gpu")  # Áp dụng cho hệ điều hành Windows
-        #options.add_argument("--headless")
+       # Detect operating system
+        os_name = platform.system()
+        if os_name == "Windows":
+            options.add_argument("--disable-gpu")  # Áp dụng cho hệ điều hành Windows
+            # User's data path
+            options.add_argument('--user-data-dir='+ self.chrome_profile_path)
+            # Profile directory
+            options.add_argument('--profile-directory=Profile 3')
+            
+        else:
+            options.add_argument("user-data-dir=" + self.chrome_profile_path)
         print ("init driver")
-        #driver = webdriver.Chrome(executable_path=self.path_chrome_driver, options=options)
-        #capabilities = DesiredCapabilities.CHROME
 
         driver = webdriver.Chrome(service=service, options=options)
         print ("init sucess")
@@ -82,7 +90,16 @@ class WebDriverLibrary:
         except Exception as e:
             print( "Timeout waiting for element to be clickable:", e)
             return None
-            
+    def wait_for_window_open(self, currentWindowNumber, timeout=10):
+        """
+        Chờ đợi một cửa sổ mới được mở ra trong một khoảng thời gian nhất định.
+        
+        :param driver: Đối tượng WebDriver
+        :param timeout: Thời gian chờ đợi tối đa (mặc định là 10 giây)
+        """
+        wait = WebDriverWait(self.driver, timeout)
+        wait.until(lambda driver: len(self.driver.window_handles) > currentWindowNumber)
+    
     def reload_page(self):  
         self.driver.refresh()
         time.sleep(5)  # Đợi 5 giây để trang web tải hoàn toàn

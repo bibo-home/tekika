@@ -1,4 +1,5 @@
 
+import platform
 import time
 from webDriverLib import WebDriverLibrary, ConfigReader
 from selenium.webdriver.common.by import By
@@ -17,11 +18,17 @@ config = ConfigReader.read_config(config_path)
 timeWait = config["timeWait"]
 
 # Khởi tạo đối tượng WebDriverLibrary
-driver = WebDriverLibrary(config['path_chrome_driver'], config['chrome_profile_path'])
+os_name = platform.system()
+if (os_name == "Windows"):
+    driver = WebDriverLibrary(config['path_Chrome_window'], config['profile_path_windows'])
+else:
+    driver = WebDriverLibrary(config['path_chrome_driver'], config['chrome_profile_path'])
+time.sleep(timeWait)
 
 # Mở trang web
 print ("open wwebsite")
 driver.open_website(config["target_url"])
+
 
 # connect wallet
 button = connect_wallet_button = driver.wait_for_element(By.XPATH, config["connectWallet"])
@@ -37,7 +44,7 @@ print("MetaMask button found:", button)
 button.click()
 print("MetaMask button clicked")
 time.sleep(timeWait)
-print(driver.get_number_of_windows())
+
 if (driver.get_number_of_windows() > 1):
     current_window_handle = driver.driver.current_window_handle
     driver.get_title_of_all_windows()
@@ -136,7 +143,8 @@ time.sleep(timeWait)
 
 tekika_window = driver.driver.current_window_handle
 
-button = driver.wait_for_element(By.XPATH, config["startQuestBtn"])
+# button = driver.wait_for_element(By.XPATH, config["startQuestBtn"])
+button = driver.wait_for_element(By.XPATH, config["startQuest1Btn"])
 button.click()
 print("Start Quest button clicked")
 time.sleep(timeWait)
@@ -228,7 +236,7 @@ def metamask_proc(driver, config, task_window, timeWait, coin="STLOS", maxAmount
         print(">> max2Btn not found:", e)
 
 # clic`k dropdown and select option
-def swap_token(coin1, coin2, numberCoin, nCount):
+def swap_token(coin1, coin2, numberCoin=25, nCount=2):
     xpath2 = "/html/body/div/div[2]/div[1]/div/div/div/div/div[2]/div[1]/div/div[2]/div/div/div[3]/div/div[1]/div/div/div/div[2]"
     xpath1 = "/html/body/div/div[2]/div[1]/div/div/div/div/div[2]/div[1]/div/div[2]/div/div/div[1]/div/div[1]/div/div/div/div[2]"
     
@@ -278,8 +286,8 @@ def swap_token(coin1, coin2, numberCoin, nCount):
             if(coin1 == "STLOS"):
                 element = driver.wait_for_element(By.XPATH, inputElement)
                 # print ("Element found:", element)
-                element.send_keys("25" + Keys.ENTER)
-                print ("> Source entered: 25")
+                element.send_keys(numberCoin + Keys.ENTER)
+                print ("> Source entered: " + numberCoin)
                 time.sleep(timeWait)
             else:
                 # element = driver.wait_for_element(By.XPATH, inputElement)
@@ -338,18 +346,18 @@ def verify_task(btn):
 
 nCount = 1
 
-for i in range(0, 11, 1):
+for i in range(0, 98, 1):
     swap_token("STLOS", "wUSK", "50", nCount)
     time.sleep(20)
     driver.driver.switch_to.window(tekika_window)
-    verify_task(config["verifyBtnKuma1"])
+    verify_task(config["verifyBtnKuma2"])
     nCount = 2
     time.sleep(3)
     driver.driver.switch_to.window(task_window)
     swap_token("wUSK", "STLOS", "50", nCount)
     time.sleep(15)
     driver.driver.switch_to.window(tekika_window)
-    verify_task(config["verifyBtnKuma1"])
+    verify_task(config["verifyBtnKuma2"])
     driver.driver.switch_to.window(task_window)
     time.sleep(3)
 
