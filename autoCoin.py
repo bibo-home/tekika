@@ -182,6 +182,50 @@ def wait_for_metamask_popup():
             print(">> Switched to Metamask window")
             break
 
+def metamask_proc(driver, config, task_window, timeWait, coin="STLOS", maxAmount="60", inputBox=""):
+    try:
+        if coin == "STLOS":
+            # time.sleep(10000)
+            element = driver.wait_for_element(By.XPATH, inputBox)
+            element.click()
+            element.send_keys(Keys.CONTROL + "a")
+            element.send_keys(Keys.DELETE)
+            element.send_keys(maxAmount + Keys.ENTER)
+            print (">> 1. Max entered: 60")
+            time.sleep(timeWait)
+        else:
+            element = driver.wait_for_element_to_be_clickable(
+                By.XPATH, config["max2Btn"])
+            element.click()
+            print(">> 1. Max out: done")
+            time.sleep(timeWait)
+
+        element = driver.wait_for_element_to_be_clickable(
+            By.XPATH, config["nextBtn2"])
+        element.click()
+        print(">> 2. Next: done")
+        time.sleep(timeWait)
+
+        element = driver.wait_for_element_to_be_clickable(
+            By.XPATH, config["approveBtnWUSK"])
+        element.click()
+        print(">> 3. Approve: done")
+        time.sleep(timeWait)
+
+        # Ensure to switch back to task window
+        driver.driver.switch_to.window(task_window)
+        time.sleep(timeWait)
+
+        print("> Back to task window")
+        element = driver.wait_for_element_to_be_clickable(
+            By.XPATH, config["confirmSwapBtn"])
+        element.click()
+        print("> Confirm Swap: done")
+        time.sleep(timeWait)
+
+        wait_for_metamask_popup()
+    except Exception as e:
+        print(">> max2Btn not found:", e)
 
 # clic`k dropdown and select option
 def swap_token(coin1, coin2, numberCoin, nCount):
@@ -227,8 +271,8 @@ def swap_token(coin1, coin2, numberCoin, nCount):
 
     # enter input for token
     inputElement = "/html/body/div/div[2]/div[1]/div/div/div/div/div[2]/div[1]/div/div[2]/div/div/div[1]/div/div[1]/input"
-
-
+    inputBox = "/html/body/div[1]/div/div/div/div[7]/div/div[2]/input"
+    
     for i in range(0,5,1):
         if (text1 == coin1 and text2 == coin2):
             if(coin1 == "STLOS"):
@@ -266,35 +310,7 @@ def swap_token(coin1, coin2, numberCoin, nCount):
         time.sleep(timeWait)
         
         wait_for_metamask_popup()
-        try:
-            element = driver.wait_for_element_to_be_clickable(By.XPATH, config["max2Btn"])
-            element.click()
-            print(">> 1. Max out: done")
-            time.sleep(timeWait)
-            
-            element = driver.wait_for_element_to_be_clickable(By.XPATH, config["nextBtn2"])
-            element.click()
-            print(">> 2. Next: done")
-            time.sleep(timeWait)
-            
-            element = driver.wait_for_element_to_be_clickable(By.XPATH, config["approveBtnWUSK"])
-            element.click()
-            print(">> 3. Approve: done")
-            time.sleep(timeWait)
-            
-            # Ensure to switch back to task window
-            driver.driver.switch_to.window(task_window)
-            time.sleep(timeWait)
-            
-            print("> Back to task window")
-            element = driver.wait_for_element_to_be_clickable(By.XPATH, config["confirmSwapBtn"])
-            element.click()
-            print("> Confirm Swap: done")
-            time.sleep(timeWait)
-            
-            wait_for_metamask_popup()
-        except Exception as e:
-            print(">> max2Btn not found:", e)
+        metamask_proc(driver, config, task_window, timeWait, "STLOS", "60", inputBox)
         
         element = driver.wait_for_element_to_be_clickable(By.XPATH, config["confirmAgainBtn"])
         element.click()
@@ -306,36 +322,7 @@ def swap_token(coin1, coin2, numberCoin, nCount):
         print("Approve button clicked")
 
         wait_for_metamask_popup()
-
-        try:
-            element = driver.wait_for_element_to_be_clickable(By.XPATH, config["max2Btn"])
-            element.click()
-            print("Max button clicked")
-            time.sleep(timeWait)
-            
-            element = driver.wait_for_element_to_be_clickable(By.XPATH, config["nextBtn2"])
-            element.click()
-            print("Next button clicked")
-            time.sleep(timeWait)
-            
-            element = driver.wait_for_element_to_be_clickable(By.XPATH, config["approveBtnWUSK"])
-            element.click()
-            print("Approve button clicked")
-            time.sleep(timeWait)
-            
-            # Ensure to switch back to task window
-            driver.driver.switch_to.window(task_window)
-            time.sleep(timeWait)
-            
-            element = driver.wait_for_element_to_be_clickable(By.XPATH, config["confirmSwapBtn"])
-            element.click()
-            print("Confirm Swap button clicked")
-            time.sleep(timeWait)
-            
-            wait_for_metamask_popup()
-        
-        except Exception as e:
-            print("max2Btn not found:", e)
+        metamask_proc(driver, config, task_window, timeWait, "wUSK")
         
         element = driver.wait_for_element_to_be_clickable(By.XPATH, config["confirmAgainBtn"])
         element.click()
