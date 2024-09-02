@@ -5,6 +5,8 @@ from webDriverLib import WebDriverLibrary, ConfigReader
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 
+partner = "sym"
+
 # Đường dẫn đến ChromeDriver và profile Chrome
 target_url = "https://mail.google.com/mail/u/0/#inbox"  # Thay đổi URL này thành trang web bạn muốn điều hướng đến
 
@@ -135,11 +137,17 @@ x = 100
 y = 200
 driver.click_at_coordinates(x, y)
 
+if (partner == "kuma"):
+    button = driver.wait_for_element(By.XPATH, config["kumaBtn"])
+    button.click()
+    print("Kuma button clicked")
+    time.sleep(timeWait)
+elif (partner == "sym"):
+    button = driver.wait_for_element(By.XPATH, config["symBtn"])
+    button.click()
+    print("Sym button clicked")
+    time.sleep(timeWait)
 
-button = driver.wait_for_element(By.XPATH, config["kumaBtn"])
-button.click()
-print("Kuma button clicked")
-time.sleep(timeWait)
 
 tekika_window = driver.driver.current_window_handle
 
@@ -159,6 +167,7 @@ time.sleep(timeWait)
 task_window = driver.driver.current_window_handle
 
 # Click the dropdown and select the option
+# if (partner == "kuma"):
 xpath2 = "/html/body/div/div[2]/div[1]/div/div/div/div/div[2]/div[1]/div/div[2]/div/div/div[3]/div/div[1]/div/div/div/div[2]"
 xpath1 = "/html/body/div/div[2]/div[1]/div/div/div/div/div[2]/div[1]/div/div[2]/div/div/div[1]/div/div[1]/div/div/div/div[2]"
 element = driver.wait_for_element(By.XPATH, xpath1)
@@ -170,6 +179,18 @@ element = driver.wait_for_element(By.XPATH, xpath2)
 print("Element found:", element)
 print("Element text:", element.text)
 text2 = element.text
+# elif (partner == "sym"):
+#     xpath2 = "/html/body/div/div[2]/div[1]/div/div/div/div/div[2]/div[1]/div/div[2]/div/div/div[1]/div/div[1]/div/div/div"
+#     xpath1 = "/html/body/div/div[2]/div[1]/div/div/div/div/div[2]/div[1]/div/div[2]/div/div/div[1]/div/div[1]/div/div/div/div[2]"
+#     element = driver.wait_for_element(By.XPATH, xpath1)
+#     text1 = element.text
+#     print("Element found:", element)
+#     print("Element text:", element.text)
+
+#     element = driver.wait_for_element(By.XPATH, xpath2)
+#     print("Element found:", element)
+#     print("Element text:", element.text)
+#     text2 = element.text
 
 
 # Wait for Metamask pop-up window to appear
@@ -192,7 +213,7 @@ def wait_for_metamask_popup():
 
 def metamask_proc(driver, config, task_window, timeWait, coin="STLOS", maxAmount="60", inputBox=""):
     try:
-        if coin == "STLOS":
+        if coin == "STLOS" or coin == "TLOS":
             # time.sleep(10000)
             element = driver.wait_for_element(By.XPATH, inputBox)
             element.click()
@@ -290,15 +311,17 @@ def swap_token(coin1, coin2, numberCoin=25, nCount=2):
                 print ("> Source entered: " + numberCoin)
                 time.sleep(timeWait)
             else:
-                # element = driver.wait_for_element(By.XPATH, inputElement)
-                # print("Element found:", element)
-                # element.send_keys("8" + Keys.ENTER)
-                # print("Input entered: 8")
-                # time.sleep(timeWait)
-                element = driver.wait_for_element_to_be_clickable(By.XPATH, config["maxBtn"])
-                element.click()
-                print("> Max button clicked")
+                element = driver.wait_for_element(By.XPATH, inputElement)
+                print("Element found:", element)
+                element.send_keys(numberCoin + Keys.ENTER)
+                print("Input entered: "+ numberCoin)
                 time.sleep(timeWait)
+                
+                # Select max button
+                # element = driver.wait_for_element_to_be_clickable(By.XPATH, config["maxBtn"])
+                # element.click()
+                # print("> Max button clicked")
+                # time.sleep(timeWait)
                 
             element = driver.wait_for_element_to_be_clickable(By.XPATH, config["previewBtn"])
             
@@ -346,15 +369,15 @@ def verify_task(btn):
 
 nCount = 1
 
-for i in range(0, 98, 1):
-    swap_token("STLOS", "wUSK", "50", nCount)
+for i in range(0, 100, 1):
+    swap_token("TLOS", "STLOS", "25", nCount)
     time.sleep(20)
     driver.driver.switch_to.window(tekika_window)
     verify_task(config["verifyBtnKuma2"])
     nCount = 2
     time.sleep(3)
     driver.driver.switch_to.window(task_window)
-    swap_token("wUSK", "STLOS", "50", nCount)
+    swap_token("STLOS", "TLOS", "20.659", nCount)
     time.sleep(15)
     driver.driver.switch_to.window(tekika_window)
     verify_task(config["verifyBtnKuma2"])

@@ -9,7 +9,7 @@
   "gmail" : "michael.carrick.9797@gmail.com",
   "connectWallet": "//button[@aria-label=\"Connect Wallet\"]",
   "metaMask":"/html/body/div[5]/div/div[1]/div[1]/div/div[2]/ul/li[1]/button",
-  "passMetamask":"dobanbiet1A!",
+  "passMetamask":"Th3gio1totdeP1A!",
   "passwordId":"password",
   "unlockBtn":"/html/body/div[1]/div/div/div/div/button",
   "nextBtn":"/html/body/div[1]/div/div/div/div[3]/div[2]/footer/button[2]",
@@ -20,6 +20,7 @@
   "questBtn":"/html/body/div[1]/div[2]/div/div[1]/button[2]",
   "partnerBtn":"/html/body/div[1]/div[2]/div/div[3]/div[1]/button[4]",
   "kumaBtn":"/html/body/div[1]/div[2]/div[2]/div[2]/div[3]/div[1]/button",
+  "symBtn":"/html/body/div[1]/div[2]/div[2]/div[2]/div[2]/div[2]/button",
   "startQuestBtn":"/html/body/div[1]/div[2]/div[2]/div[2]/div/div[2]/div/div[3]/div/div[1]/div/div[1]/div[3]/div[2]/div/button[2]",
   "startQuest1Btn":"/html/body/div[1]/div[2]/div[2]/div[2]/div/div[2]/div/div[3]/div/div[2]/div/div[1]/div[3]/div[2]/div/button[2]",
   "coinSelection1":"/html/body/div/div[2]/div[1]/div/div/div/div/div[2]/div[1]/div/div[2]/div/div/div[1]/div/div[1]/div/div/div",
@@ -36,5 +37,7 @@
   "confirmAgainBtn":"/html/body/div[1]/div/div/div/div[3]/div[3]/footer/button[2]",
   "approveBtnWUSK":"/html/body/div[1]/div/div/div/div[11]/footer/button[2]",
   "verifyBtnKuma1":"/html/body/div[1]/div[2]/div[2]/div[2]/div/div[2]/div/div[3]/div/div[1]/div/div[1]/div[3]/div[2]/div/button[1]",
-  "verifyBtnKuma2":"/html/body/div[1]/div[2]/div[2]/div[2]/div/div[2]/div/div[3]/div/div[2]/div/div[1]/div[3]/div[2]/div/button[1]"
+  "verifyBtnKuma2":"/html/body/div[1]/div[2]/div[2]/div[2]/div/div[2]/div/div[3]/div/div[2]/div/div[1]/div[3]/div[2]/div/button[1]",
+  "verifyBtnSym1":"/html/body/div[1]/div[2]/div[2]/div[2]/div/div[2]/div/div[3]/div/div[2]/div/div[1]/div[3]/div[2]/div/button[1]"
+
 }
