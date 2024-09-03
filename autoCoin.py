@@ -165,6 +165,8 @@ y = 200
 driver.click_at_coordinates(x, y)
 
 # Click claim Daily Quest
+# Ensure everything is loaded
+time.sleep(5)
 clicked_claim = driver.click_claim_buttons()
 if not clicked_claim:
     print("No daily claim!")
