@@ -187,7 +187,18 @@ try:
         if button.text in ["Like Tweet", "Re-Tweet", "Like tweet", "Re-tweet"]:
             button.click()
             print(f"Clicked '{button.text}' button")
-            time.sleep(5)  # Wait for 5 seconds for the pop-up to appear
+            time.sleep(2)  # Wait for 5 seconds for the pop-up to appear
+
+            infoPopUp = "/html/body/div[2]/div[5]/div/div/div/button"
+            
+            #check info pop-up still there or not
+            try:
+                element = driver.wait_for_element(By.XPATH, infoPopUp, timeout=1)
+                element.click()
+                print("Info pop-up closed")
+                time.sleep(timeWait)
+            except Exception as e:
+                print("Info pop-up not found:", e)
 
             # Wait for the specific button in the pop-up and click it
             confirm_button = driver.wait_for_element(By.XPATH, likeAndReTweet)
