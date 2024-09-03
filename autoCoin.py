@@ -143,14 +143,19 @@ tekika_window = driver.driver.current_window_handle
 
 # Click claim Daily Quest
 clicked_claim = driver.click_claim_buttons()
+if not clicked_claim:
+    print("No daily claim!")
+else:
+    print("Daily claim clicked")
+
 clicked_confirm = driver.click_buttons_and_confirm()
 
 # Exit if no buttons were clicked
-if not clicked_claim and not clicked_confirm:
+if not clicked_confirm:
     print("No buttons matched the condition. Exiting.")
     sys.exit()
 
-
+time.sleep(10000)
 
 
 
