@@ -48,6 +48,26 @@ button.click()
 print("MetaMask button clicked")
 time.sleep(timeWait)
 
+
+# Wait for Metamask pop-up window to appear
+def wait_for_metamask_popup():
+    all_windows = driver.driver.window_handles
+
+    # Wait until the number of windows increases
+    while len(all_windows) == 1:
+        time.sleep(1)
+        all_windows = driver.driver.window_handles
+
+    # Switch to the new window
+    for window in all_windows:
+        if window != tekika_window:
+            print(">> Metamask popup")
+            driver.driver.switch_to.window(window)
+            time.sleep(timeWait)
+            print(">> Switched to Metamask window")
+            break
+
+
 if (driver.get_number_of_windows() > 1):
     current_window_handle = driver.driver.current_window_handle
     driver.get_title_of_all_windows()
@@ -105,20 +125,19 @@ try:
     button.click()
     print("Signin button clicked")
     time.sleep(timeWait)
+    tekika_window = driver.driver.current_window_handle
+    
+    wait_for_metamask_popup()
+    
     
     signBtn_extra = "/html/body/div[1]/div/div/div/div[4]/footer/button[2]"
 
+    # button = driver.wait_for_element(By.XPATH, '//button[text()="Confirm"]',timeout=1)
+    button = driver.wait_for_element(By.XPATH, signBtn_extra, timeout=1)
+    button.click()
+    time.sleep(timeWait)
+    driver.switch_to_window(tekika_window)
 
-    if (driver.get_number_of_windows() > 1):
-        driver.switch_to_window(1)
-        # button = driver.wait_for_element(By.XPATH, '//button[text()="Confirm"]',timeout=1)
-        button = driver.wait_for_element(By.XPATH, signBtn_extra, timeout=1)
-        button.click()
-        time.sleep(timeWait)
-        driver.close_window()
-        driver.switch_to_window(0)
-    else:
-        print("not need confirmed")
 except Exception as e:
     print(f"An error occurred: {e}")
     print ("not need sign in")
@@ -141,9 +160,6 @@ time.sleep(timeWait)
 x = 100
 y = 200
 driver.click_at_coordinates(x, y)
-
-tekika_window = driver.driver.current_window_handle
-
 
 # Click claim Daily Quest
 clicked_claim = driver.click_claim_buttons()
@@ -174,7 +190,7 @@ try:
             confirm_button = driver.wait_for_element(By.XPATH, likeAndReTweet)
             confirm_button.click()
             print(f"Clicked '{confirm_button.text}' button in the pop-up")
-            time.sleep(5)  # Wait for 5 seconds after each confirm click
+            time.sleep(10)  # Wait for 5 seconds after each confirm click
             clicked_any = True
         
 except Exception as e:
@@ -223,23 +239,7 @@ print("Element text:", element.text)
 text2 = element.text
 
 
-# Wait for Metamask pop-up window to appear
-def wait_for_metamask_popup():
-    all_windows = driver.driver.window_handles
 
-    # Wait until the number of windows increases
-    while len(all_windows) == 2:
-        time.sleep(1)
-        all_windows = driver.driver.window_handles
-
-    # Switch to the new window
-    for window in all_windows:
-        if window != task_window and window != tekika_window:
-            print(">> Metamask popup")
-            driver.driver.switch_to.window(window)
-            time.sleep(timeWait)
-            print(">> Switched to Metamask window")
-            break
 
 def metamask_proc(driver, config, task_window, timeWait, coin="STLOS", maxAmount="60", inputBox=""):
     try:
