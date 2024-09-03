@@ -67,7 +67,7 @@ if (driver.get_number_of_windows() > 1):
         button.click()
         print("Unlock button clicked")
         time.sleep(timeWait)
-
+	
         if driver.get_number_of_windows() > 1:
             button = driver.wait_for_element(By.XPATH, config["nextBtn"])
             button.click()
@@ -105,10 +105,14 @@ try:
     button.click()
     print("Signin button clicked")
     time.sleep(timeWait)
+    
+    signBtn_extra = "/html/body/div[1]/div/div/div/div[4]/footer/button[2]"
+
 
     if (driver.get_number_of_windows() > 1):
         driver.switch_to_window(1)
-        button = driver.wait_for_element(By.XPATH, '//button[text()="Confirm"]',timeout=1)
+        # button = driver.wait_for_element(By.XPATH, '//button[text()="Confirm"]',timeout=1)
+        button = driver.wait_for_element(By.XPATH, signBtn_extra, timeout=1)
         button.click()
         time.sleep(timeWait)
         driver.close_window()

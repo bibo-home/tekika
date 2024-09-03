@@ -223,18 +223,18 @@ class WebDriverLibrary:
             
             for button in buttons:
                 # Check the text of each button
-                if button.text in ["Like tweet", "Re-tweet"]:
+                if button.text in ["Like Tweet", "Re-Tweet"]:
                     button.click()
                     print(f"Clicked '{button.text}' button")
-                    time.sleep(random.uniform(2, 5))  # Wait for 2 seconds for the pop-up to appear
+                    time.sleep(2)  # Wait for 2 seconds for the pop-up to appear
 
                     # Wait for the specific button in the pop-up and click it
                     confirm_button = self.wait_for_element(By.XPATH, likeAndReTweet)
                     confirm_button.click()
                     print(f"Clicked '{confirm_button.text}' button in the pop-up")
-                    time.sleep(random.uniform(2, 5))  # Wait for 5 seconds after each confirm click
+                    time.sleep(5)  # Wait for 5 seconds after each confirm click
                     clicked_any = True
-                time.sleep(random.uniform(2, 5))  # Wait for 2 seconds after each click
+                time.sleep(2)  # Wait for 2 seconds after each click
                     
             return clicked_any
         except Exception as e:
