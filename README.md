@@ -5,8 +5,12 @@ chọn phiên bản và cài
 => nhớ tích vào thêm environment biến trong khi cài đặt
 
 sau đó cài gói:
+
+```bash
+sudo apt install python3-pip
 pip install selenium
 pip install webdriver_manager
+```
 
 Bước 2: down chromedriver để điều khiển web
 check phiên bản chrome hiện tại:

@@ -152,12 +152,33 @@ if not clicked_claim:
 else:
     print("Daily claim clicked")
 
-clicked_confirm = driver.click_buttons_and_confirm()
 
-# Exit if no buttons were clicked
-if not clicked_confirm:
-    print("No buttons matched the condition. Exiting.")
-    sys.exit()
+
+likeAndReTweet = "/html/body/div[4]/div[3]/div/section/footer/button[2]"
+try:
+    # Find all buttons with the specified class
+    buttons = driver.driver.find_elements(By.CLASS_NAME, "chakra-button")
+    
+    # Print all buttons found
+    for button in buttons:
+        print(button.text)
+        
+    for button in buttons:
+        # Check the text of each button
+        if button.text in ["Like Tweet", "Re-Tweet", "Like tweet", "Re-tweet"]:
+            button.click()
+            print(f"Clicked '{button.text}' button")
+            time.sleep(2)  # Wait for 2 seconds for the pop-up to appear
+
+            # Wait for the specific button in the pop-up and click it
+            confirm_button = self.wait_for_element(By.XPATH, likeAndReTweet)
+            confirm_button.click()
+            print(f"Clicked '{confirm_button.text}' button in the pop-up")
+            time.sleep(5)  # Wait for 5 seconds after each confirm click
+            clicked_any = True
+        
+except Exception as e:
+    print("No daily quest:", e)
 
 time.sleep(10000)
 
