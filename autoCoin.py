@@ -141,7 +141,10 @@ try:
 except Exception as e:
     print(f"An error occurred: {e}")
     print ("not need sign in")
-
+    
+# Ensure to switch back to tekika window   
+time.sleep(3)
+driver.switch_to_window(0)
 button = driver.wait_for_element(By.XPATH, config["avatarBtn"])
 button.click()
 print("Avatar button clicked")
@@ -184,13 +187,13 @@ try:
         if button.text in ["Like Tweet", "Re-Tweet", "Like tweet", "Re-tweet"]:
             button.click()
             print(f"Clicked '{button.text}' button")
-            time.sleep(2)  # Wait for 2 seconds for the pop-up to appear
+            time.sleep(5)  # Wait for 5 seconds for the pop-up to appear
 
             # Wait for the specific button in the pop-up and click it
             confirm_button = driver.wait_for_element(By.XPATH, likeAndReTweet)
             confirm_button.click()
             print(f"Clicked '{confirm_button.text}' button in the pop-up")
-            time.sleep(10)  # Wait for 5 seconds after each confirm click
+            time.sleep(10)  # Wait for 10 seconds after each confirm click
             clicked_any = True
         
 except Exception as e:
