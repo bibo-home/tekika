@@ -190,4 +190,38 @@ class WebDriverLibrary:
     def quit_driver(self):
         self.driver.quit()
 
+    def click_claim_buttons(self):
+        # Find all buttons with the specified class
+        buttons = self.driver.find_elements(By.CLASS_NAME, "chakra-button")
+        clicked_any = False
         
+        for button in buttons:
+            # Check the text of each button
+            if button.text == "Claim":
+                button.click()
+                print("Clicked a 'Claim' button")
+                time.sleep(5)  # Wait for 5 seconds after each click
+                clicked_any = True
+                
+        return clicked_any    
+                
+    def click_buttons_and_confirm(self):
+        # Find all buttons with the specified class
+        buttons = self.driver.find_elements(By.CLASS_NAME, "chakra-button")
+        clicked_any = False
+        
+        for button in buttons:
+            # Check the text of each button
+            if button.text in ["Like tweet", "Re-tweet"]:
+                button.click()
+                print(f"Clicked '{button.text}' button")
+                time.sleep(2)  # Wait for 2 seconds for the pop-up to appear
+
+                # Wait for the specific button in the pop-up and click it
+                confirm_button = self.wait_for_element(By.XPATH, "//button[text()='Like tweet' or text()='Re-tweet']")
+                confirm_button.click()
+                print(f"Clicked '{confirm_button.text}' button in the pop-up")
+                time.sleep(5)  # Wait for 5 seconds after each confirm click
+                clicked_any = True
+                
+        return clicked_any

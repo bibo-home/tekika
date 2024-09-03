@@ -5,6 +5,9 @@ from webDriverLib import WebDriverLibrary, ConfigReader
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 
+# Daily quest
+
+
 # Đường dẫn đến ChromeDriver và profile Chrome
 target_url = "https://mail.google.com/mail/u/0/#inbox"  # Thay đổi URL này thành trang web bạn muốn điều hướng đến
 
@@ -126,22 +129,40 @@ button.click()
 print("Quest button clicked")
 time.sleep(timeWait)
 
-button = driver.wait_for_element(By.XPATH, config["partnerBtn"])
+button = driver.wait_for_element(By.XPATH, config["dailyQuestBtn"])
 button.click()
-print("Partner button clicked")
+print("Daily quest button clicked")
 time.sleep(timeWait)
 
 x = 100
 y = 200
 driver.click_at_coordinates(x, y)
 
-
-button = driver.wait_for_element(By.XPATH, config["kumaBtn"])
-button.click()
-print("Kuma button clicked")
-time.sleep(timeWait)
-
 tekika_window = driver.driver.current_window_handle
+
+
+# Click claim Daily Quest
+clicked_claim = driver.click_claim_buttons()
+clicked_confirm = driver.click_buttons_and_confirm()
+
+# Exit if no buttons were clicked
+if not clicked_claim and not clicked_confirm:
+    print("No buttons matched the condition. Exiting.")
+    sys.exit()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # button = driver.wait_for_element(By.XPATH, config["startQuestBtn"])
 button = driver.wait_for_element(By.XPATH, config["startQuest1Btn"])
