@@ -7,6 +7,20 @@ from webDriverLib import WebDriverLibrary, ConfigReader
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 
+
+book1Quest = 1
+book2Quest = 0
+
+if book1Quest == 1:
+    tlosAmount = 60
+    slushAmount = 25
+elif book2Quest == 1:
+    tlosAmount = 250
+    slushAmount = 60
+else:
+    tlosAmount = 10
+    slushAmount = 5
+
 # Đường dẫn đến ChromeDriver và profile Chrome
 target_url = "https://mail.google.com/mail/u/0/#inbox"  # Thay đổi URL này thành trang web bạn muốn điều hướng đến
 
@@ -165,26 +179,6 @@ time.sleep(timeWait)
 
 # Get the task window handle
 task_window = driver.driver.current_window_handle
-
-# Click the dropdown and select the option
-# sourceToken = "/html/body/div/main/div/main/div[3]/div/div/div[2]/div[1]/div[2]/div/div[1]/button"
-# destToken = "/html/body/div/main/div/main/div[3]/div/div/div[2]/div[1]/div[3]/div/div[1]/button"
-# element = driver.wait_for_element(By.XPATH, sourceToken)
-# srcText = element.find_element(By.TAG_NAME, "h3").text
-
-# if srcText == "TLOS":
-#     print("Source token is TLOS")
-# else:
-#     print("Source token is not TLOS")
-
-# element = driver.wait_for_element(By.XPATH, destToken)
-# destText = element.find_element(By.TAG_NAME, "h3").text
-# if srcText == "SLUSH":
-#     print("Destination token is SLUSH")
-# else:
-#     print("Destination token is not SLUSH")
-
-
  
 # Wait for Metamask pop-up window to appear
 def wait_for_metamask_popup():
@@ -352,14 +346,14 @@ def verify_task(btn):
 nCount = 1
 
 for i in range(0, 98, 1):
-    swap_token("TLOS", "SLUSH", "250", nCount)
+    swap_token("TLOS", "SLUSH", tlosAmount, nCount)
     time.sleep(20)
     driver.driver.switch_to.window(tekika_window)
     verify_task(config["verifyVictoryQuestBtn"])
     nCount = 2
     time.sleep(3)
     driver.driver.switch_to.window(task_window)
-    swap_token("SLUSH", "TLOS", "60", nCount)
+    swap_token("SLUSH", "TLOS", slushAmount, nCount)
     time.sleep(15)
     driver.driver.switch_to.window(tekika_window)
     verify_task(config["verifyVictoryQuestBtn"])
