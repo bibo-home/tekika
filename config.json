@@ -20,7 +20,7 @@
   "questBtn":"/html/body/div[1]/div[2]/div/div[1]/button[2]",
   "partnerBtn":"/html/body/div[1]/div[2]/div/div[3]/div[1]/button[4]",
   "swapCircleBtn":"/html/body/div[1]/div[2]/div[2]/div[2]/div[2]/div[1]/button",
-  "startVictoryQuestBtn":"/html/body/div[1]/div[2]/div[2]/div[2]/div/div[2]/div/div[3]/div/div[10]/div/div[1]/div[3]/div[2]/div/button[2]",
+  "startVictoryQuestBtn":"/html/body/div[1]/div[2]/div[2]/div[2]/div/div[2]/div/div[3]/div/div[1]/div/div[1]/div[3]/div[2]/div/button[2]",
   "swapBtn":"/html/body/div/div[2]/div[1]/div/div/div/div/div[2]/div[1]/div/div[2]/div/div/div[2]/div[1]/div/svg",
   "approveSlushBtn":"/html/body/div/main/div/main/div[3]/div/div/div[2]/div[3]/button[1]", 
   "previewBtn":"/html/body/div/div[2]/div[1]/div/div/div/div/div[2]/div[1]/div/div[2]/div/button",
@@ -32,5 +32,8 @@
   "confirmAgainBtn":"/html/body/div[1]/div/div/div/div[3]/div[3]/footer/button[2]",
   "approveBtnSLUSH":"/html/body/div[1]/div/div/div/div[11]/footer/button[2]",
   "swapTokenToTokenBtn":"/html/body/div/main/div/main/div[3]/div/div/div[2]/button",
-  "verifyVictoryQuestBtn":"/html/body/div[1]/div[2]/div[2]/div[2]/div/div[2]/div/div[3]/div/div[9]/div/div[1]/div[3]/div[2]/div/button[1]"
+  "verifyBasicTrainingBtn":"/html/body/div[1]/div[2]/div[2]/div[2]/div/div[2]/div/div[3]/div/div[1]/div/div[1]/div[3]/div[2]/div/button[1]",
+  "verifyUniteQuestBtn":"/html/body/div[1]/div[2]/div[2]/div[2]/div/div[2]/div/div[3]/div/div[4]/div/div[1]/div[3]/div[2]/div/button[1]",
+  "verifyEnemyQuestBtn":"/html/body/div[1]/div[2]/div[2]/div[2]/div/div[2]/div/div[3]/div/div[6]/div/div[1]/div[3]/div[2]/div/button[1]",
+  "verifyVictoryQuestBtn":"/html/body/div[1]/div[2]/div[2]/div[2]/div/div[2]/div/div[3]/div/div[10]/div/div[1]/div[3]/div[2]/div/button[1]"
 }

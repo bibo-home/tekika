@@ -30,18 +30,22 @@ config['chrome_profile_path'] = config['chrome_profile_path'].replace('{username
 #time to wait for action
 timeWait = config["timeWait"]
 
+verify_basic_training_btn = config.get("verifyBasicTrainingBtn", "")
+verify_unite_quest_btn = config.get("verifyUniteQuestBtn", "")
+verify_enemy_quest_btn = config.get("verifyEnemyQuestBtn", "")
+verify_victory_quest_btn = config.get("verifyVictoryQuestBtn", "")
 
 if book1Quest == 1:
-    tlosAmount = 130
-    slushAmount = 32
-    listVerifyBtns = [config["verifyBasicTrainingBtn"], config["verifyUniteQuestBtn"], config["verifyEnemyQuestBtn"]]
+    tlosAmount = "130"
+    slushAmount = "32"
+    listVerifyBtns = [verify_basic_training_btn, verify_unite_quest_btn, verify_enemy_quest_btn]
 elif book2Quest == 1:
-    tlosAmount = 250
-    slushAmount = 60
-    listVerifyBtns = [config["verifyVictoryQuestBtn"]]
+    tlosAmount = "250"
+    slushAmount = "60"
+    listVerifyBtns = [verify_victory_quest_btn]
 else:
-    tlosAmount = 10
-    slushAmount = 5
+    tlosAmount = "10"
+    slushAmount = "5"
     listVerifyBtns = []
 
 
@@ -250,7 +254,7 @@ def metamask_proc(driver, config, task_window, timeWait, coin="TLOS", maxAmount=
         print(">> max2Btn not found:", e)
 
 # clic`k dropdown and select option
-def swap_token(coin1, coin2, numberCoin=25, nCount=2):
+def swap_token(coin1, coin2, numberCoin="25", nCount=2):
     sourceToken = "/html/body/div/main/div/main/div[3]/div/div/div[2]/div[1]/div[2]/div/div[1]/button"
     destToken = "/html/body/div/main/div/main/div[3]/div/div/div[2]/div[1]/div[3]/div/div[1]/button"
     element = driver.wait_for_element(By.XPATH, sourceToken)
