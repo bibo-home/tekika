@@ -1,21 +1,27 @@
 
 import platform
 import time
+import os
+import json
 from webDriverLib import WebDriverLibrary, ConfigReader
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 
-# Daily quest
-
+# Đường dẫn đến file cấu hình JSON
+config_path = "config.json"
 
 # Đường dẫn đến ChromeDriver và profile Chrome
 target_url = "https://mail.google.com/mail/u/0/#inbox"  # Thay đổi URL này thành trang web bạn muốn điều hướng đến
 
-# Đường dẫn đến file cấu hình JSON
-config_path = "config.json"
-
 # Đọc cấu hình từ file JSON
 config = ConfigReader.read_config(config_path)
+
+# Get the current user's home directory
+home_dir = os.path.expanduser("~")
+username = os.path.basename(home_dir)
+
+# Replace the placeholder with the actual username
+config['chrome_profile_path'] = config['chrome_profile_path'].replace('{username}', username)
 
 #time to wait for action
 timeWait = config["timeWait"]
