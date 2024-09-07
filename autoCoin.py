@@ -212,6 +212,8 @@ try:
     button.click()
     print("Altura Meta Sign clicked")
     time.sleep(5)
+    driver.switch_to_window(altura_window)
+    time.sleep(2)
 except Exception as e:
     print(f"No metamask popup: {e}")
 
