@@ -11,16 +11,6 @@ from selenium.webdriver.common.keys import Keys
 book1Quest = 1
 book2Quest = 0
 
-if book1Quest == 1:
-    tlosAmount = 60
-    slushAmount = 25
-elif book2Quest == 1:
-    tlosAmount = 250
-    slushAmount = 60
-else:
-    tlosAmount = 10
-    slushAmount = 5
-
 # Đường dẫn đến ChromeDriver và profile Chrome
 target_url = "https://mail.google.com/mail/u/0/#inbox"  # Thay đổi URL này thành trang web bạn muốn điều hướng đến
 
@@ -39,6 +29,22 @@ config['chrome_profile_path'] = config['chrome_profile_path'].replace('{username
 
 #time to wait for action
 timeWait = config["timeWait"]
+
+
+if book1Quest == 1:
+    tlosAmount = 130
+    slushAmount = 32
+    listVerifyBtns = [config["verifyBasicTrainingBtn"], config["verifyUniteQuestBtn"], config["verifyEnemyQuestBtn"]]
+elif book2Quest == 1:
+    tlosAmount = 250
+    slushAmount = 60
+    listVerifyBtns = [config["verifyVictoryQuestBtn"]]
+else:
+    tlosAmount = 10
+    slushAmount = 5
+    listVerifyBtns = []
+
+
 
 # Khởi tạo đối tượng WebDriverLibrary
 os_name = platform.system()
@@ -317,7 +323,7 @@ def swap_token(coin1, coin2, numberCoin=25, nCount=2):
         time.sleep(timeWait)
         
         wait_for_metamask_popup()
-        metamask_proc(driver, config, task_window, timeWait, "TLOS", "250", inputBox)
+        metamask_proc(driver, config, task_window, timeWait, "TLOS", numberCoin, inputBox)
         
         element = driver.wait_for_element_to_be_clickable(By.XPATH, config["confirmAgainBtn"])
         element.click()
@@ -336,12 +342,12 @@ def swap_token(coin1, coin2, numberCoin=25, nCount=2):
         print("Confirm Again button clicked")
         time.sleep(timeWait)
         
-def verify_task(btn):
-    button = driver.wait_for_element(By.XPATH, btn)
-    button.click()
-    print("Verify clicked")
-    time.sleep(timeWait)
-
+def verify_task(listBtns):
+    for btn in listBtns:
+        button = driver.wait_for_element(By.XPATH, btn)
+        button.click()
+        print("Verify clicked")
+        time.sleep(15)
 
 nCount = 1
 
@@ -349,14 +355,14 @@ for i in range(0, 98, 1):
     swap_token("TLOS", "SLUSH", tlosAmount, nCount)
     time.sleep(20)
     driver.driver.switch_to.window(tekika_window)
-    verify_task(config["verifyVictoryQuestBtn"])
+    verify_task(listVerifyBtns)
     nCount = 2
     time.sleep(3)
     driver.driver.switch_to.window(task_window)
     swap_token("SLUSH", "TLOS", slushAmount, nCount)
     time.sleep(15)
     driver.driver.switch_to.window(tekika_window)
-    verify_task(config["verifyVictoryQuestBtn"])
+    verify_task(listVerifyBtns)
     driver.driver.switch_to.window(task_window)
     time.sleep(3)
 
