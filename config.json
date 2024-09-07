@@ -4,7 +4,7 @@
   "path_Chrome_window" :"./chromedriver.exe",
   "profile_path_windows": "C:\\Users\\nguye\\AppData\\Local\\Google\\Chrome\\User Data",
   "profile_directory" : "Profile 3",
-  "chrome_profile_path": "/home/tekika13/.config/google-chrome/",
+  "chrome_profile_path": "/home/{username}/.config/google-chrome/",
   "target_url": "https://www.tekika.io/",
   "gmail" : "michael.carrick.9797@gmail.com",
   "connectWallet": "//button[@aria-label=\"Connect Wallet\"]",

@@ -17,6 +17,14 @@ config_path = "config.json"
 # Đọc cấu hình từ file JSON
 config = ConfigReader.read_config(config_path)
 
+
+# Get the current user's home directory
+home_dir = os.path.expanduser("~")
+username = os.path.basename(home_dir)
+
+# Replace the placeholder with the actual username
+config['chrome_profile_path'] = config['chrome_profile_path'].replace('{username}', username)
+
 #time to wait for action
 timeWait = config["timeWait"]
 
