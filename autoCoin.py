@@ -240,7 +240,7 @@ def metamask_proc(driver, config, task_window, timeWait, coin="TLOS", maxAmount=
 
         print("> Back to task window")
         element = driver.wait_for_element_to_be_clickable(
-            By.XPATH, config["swapBtnSlushToTlosBtn"])
+            By.XPATH, config["swapTokenToTokenBtn"])
         element.click()
         print("> Confirm Swap: done")
         time.sleep(timeWait)
@@ -260,6 +260,8 @@ def swap_token(coin1, coin2, numberCoin=25, nCount=2):
     destText = element.find_element(By.TAG_NAME, "h3").text
     
     swapBTN = "/html/body/div/main/div/main/div[3]/div/div/div[2]/div[1]/button"
+    slushToken = "/html/body/div[2]/div/div/div/div/div[2]/div/div[2]/div[2]/button[7]"
+    
     
     if (nCount == 1):
         if (srcText !=  coin1):    
@@ -267,47 +269,55 @@ def swap_token(coin1, coin2, numberCoin=25, nCount=2):
             time.sleep(timeWait)
 
         if (destText != coin2):
-            driver.click_dropdown_and_select_option_by_XPATH(destToken, coin2)
+            element = driver.wait_for_element(By.XPATH, destToken)
+            element.click()
+            print("Destination token clicked")
             time.sleep(timeWait)
+            
+            element = driver.wait_for_element(By.XPATH, slushToken)
+            element.click()
+            print("Choose SLUSH token")
+            time.sleep(timeWait)
+        element = driver.wait_for_element(By.XPATH, sourceToken)
+        srcText = element.find_element(By.TAG_NAME, "h3").text
+
+        element = driver.wait_for_element(By.XPATH, destToken)
+        destText = element.find_element(By.TAG_NAME, "h3").text
+        
     else:
         element = driver.wait_for_element(By.XPATH, swapBTN)
         element.click()
         print("Swap clicked successfully")
-        text1 = coin1
-        text2 = coin2
+        
+        element = driver.wait_for_element(By.XPATH, sourceToken)
+        srcText = element.find_element(By.TAG_NAME, "h3").text
 
-    print("Pair: ", text1 + " " + text2)
+        element = driver.wait_for_element(By.XPATH, destToken)
+        destText = element.find_element(By.TAG_NAME, "h3").text
+
+    print("Pair: ", srcText + " " + destText)
 
     # enter input for token
     inputElement = "/html/body/div/main/div/main/div[3]/div/div/div[2]/div[1]/div[2]/div/div[2]/input"
     inputBox = "/html/body/div[1]/div/div/div/div[7]/div/div[2]/input"
     
-    for i in range(0,5,1):
-        if (text1 == coin1 and text2 == coin2):
-            if(coin1 == "TLOS"):
-                element = driver.wait_for_element(By.XPATH, inputElement)
-                element.send_keys(numberCoin + Keys.ENTER)
-                print ("> Source entered: " + numberCoin)
-                time.sleep(timeWait)
-            else:
-                element = driver.wait_for_element_to_be_clickable(By.XPATH, config["maxBtn"])
-                element.click()
-                print("> Max button clicked")
-                time.sleep(timeWait)
-                
-            element = driver.wait_for_element_to_be_clickable(By.XPATH, config["previewBtn"])
+
+    if (srcText == coin1 and destText == coin2):
+        if(coin1 == "TLOS"):
+            element = driver.wait_for_element(By.XPATH, inputElement)
+            element.send_keys(numberCoin + Keys.ENTER)
+            print ("> Source entered: " + numberCoin)
+            time.sleep(timeWait)
+        else:
+            element = driver.wait_for_element_to_be_clickable(By.XPATH, config["maxBtn"])
+            element.click()
+            print("> Max button clicked")
+            time.sleep(timeWait)
             
-            if (element):
-                element.click()
-                print("> Preview button clicked")
-                time.sleep(timeWait)
-                break
-            else:
-                driver.reload_page()
-                print("> Preview button not found, reload page, try again time: %d", i)
+        #element = driver.wait_for_element_to_be_clickable(By.XPATH, config["previewBtn"])
                 
     if (coin1 == "TLOS"):
-        element = driver.wait_for_element_to_be_clickable(By.XPATH, config["confirmSwapBtn"])
+        element = driver.wait_for_element_to_be_clickable(By.XPATH, config["swapTokenToTokenBtn"])
         element.click()
         print("> Confirm Swap: done")
         time.sleep(timeWait)

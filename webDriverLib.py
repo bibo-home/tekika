@@ -163,14 +163,24 @@ class WebDriverLibrary:
         dropdown.click()
         print("Dropdown clicked")
 
-        search = self.wait_for_element(By.XPATH, '//input[@name="tokenSearchInput"]')
-        search.send_keys(textFind)
-        print("enter search text")
+        # search = self.wait_for_element(By.XPATH, '//input[@name="tokenSearchInput"]')
+        # search.send_keys(textFind)
+        # print("enter search text")
 
-        # Wait for the option to be visible and click it
-        actions = ActionChains(self.driver)
-        actions.send_keys(Keys.ENTER).perform()
-        print("Option selected")   
+        # # Wait for the option to be visible and click it
+        # actions = ActionChains(self.driver)
+        # actions.send_keys(Keys.ENTER).perform()
+        # print("Option selected")   
+        
+        time.sleep(1)  # Wait for the dropdown options to appear
+
+        # Find the option and click it
+        option_xpath = f"//button[contains(text(), '{textFind}')]"
+        option_element = self.wait_for_element(By.XPATH, option_xpath)
+        option_element.click()
+        print(f"Selected option '{textFind}' from dropdown")
+        
+        
 
     def get_attribute_value(self, by, locator, attribute_name):
         element = self.wait_for_element(by, locator)
