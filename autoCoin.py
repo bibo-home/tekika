@@ -7,6 +7,10 @@ from selenium.webdriver.common.keys import Keys
 
 partner = "sym"
 
+contactQuest = 0
+umbaQuest = 1
+veiledQuest = 0
+
 # Đường dẫn đến ChromeDriver và profile Chrome
 target_url = "https://mail.google.com/mail/u/0/#inbox"  # Thay đổi URL này thành trang web bạn muốn điều hướng đến
 
@@ -26,10 +30,28 @@ if (os_name == "Windows"):
 else:
     driver = WebDriverLibrary(config['path_chrome_driver'], config['chrome_profile_path'])
 time.sleep(timeWait)
-
 # Mở trang web
 print ("open wwebsite")
 driver.open_website(config["target_url"])
+
+
+if contactQuest == 1:
+    tlosAmount = "25"
+    stlosAmount = "21"
+    listVerifyBtns = "/html/body/div[1]/div[2]/div[2]/div[2]/div/div[2]/div/div[3]/div/div[2]/div/div[1]/div[3]/div[2]/div/button[1]"
+elif umbaQuest == 1:
+    tlosAmount = "60"
+    stlosAmount = "49.57"
+    listVerifyBtns = "/html/body/div[1]/div[2]/div[2]/div[2]/div/div[2]/div/div[3]/div/div[4]/div/div[1]/div[3]/div[2]/div/button[1]"
+elif veiledQuest == 1:
+    tlosAmount = "265"
+    stlosAmount = "218.981"
+    listVerifyBtns = "/html/body/div[1]/div[2]/div[2]/div[2]/div/div[2]/div/div[3]/div/div[6]/div/div[1]/div[3]/div[2]/div/button[1]"
+else:
+    tlosAmount = "10"
+    stlosAmount = "5"
+    listVerifyBtns = []
+
 
 
 # connect wallet
@@ -302,6 +324,10 @@ def swap_token(coin1, coin2, numberCoin=25, nCount=2):
     inputElement = "/html/body/div/div[2]/div[1]/div/div/div/div/div[2]/div[1]/div/div[2]/div/div/div[1]/div/div[1]/input"
     inputBox = "/html/body/div[1]/div/div/div/div[7]/div/div[2]/input"
     
+    
+    time.sleep(5)
+    
+    
     for i in range(0,5,1):
         if (text1 == coin1 and text2 == coin2):
             if(coin1 == "STLOS"):
@@ -341,7 +367,7 @@ def swap_token(coin1, coin2, numberCoin=25, nCount=2):
         time.sleep(timeWait)
         
         wait_for_metamask_popup()
-        metamask_proc(driver, config, task_window, timeWait, "STLOS", "60", inputBox)
+        metamask_proc(driver, config, task_window, timeWait, "STLOS", numberCoin, inputBox)
         
         element = driver.wait_for_element_to_be_clickable(By.XPATH, config["confirmAgainBtn"])
         element.click()
@@ -370,17 +396,17 @@ def verify_task(btn):
 nCount = 1
 
 for i in range(0, 100, 1):
-    swap_token("TLOS", "STLOS", "25", nCount)
+    swap_token("TLOS", "STLOS", tlosAmount, nCount)
     time.sleep(20)
     driver.driver.switch_to.window(tekika_window)
-    verify_task(config["verifyBtnKuma2"])
+    verify_task(listVerifyBtns)
     nCount = 2
     time.sleep(3)
     driver.driver.switch_to.window(task_window)
-    swap_token("STLOS", "TLOS", "20.659", nCount)
+    swap_token("STLOS", "TLOS", stlosAmount, nCount)
     time.sleep(15)
     driver.driver.switch_to.window(tekika_window)
-    verify_task(config["verifyBtnKuma2"])
+    verify_task(listVerifyBtns)
     driver.driver.switch_to.window(task_window)
     time.sleep(3)
 
