@@ -4,7 +4,7 @@
   "path_Chrome_window" :"./chromedriver.exe",
   "profile_path_windows": "C:\\Users\\nguye\\AppData\\Local\\Google\\Chrome\\User Data",
   "profile_directory" : "Profile 3",
-  "chrome_profile_path": "/home/tekika18/.config/google-chrome/User",
+  "chrome_profile_path": "/home/{username}/.config/google-chrome/User",
   "target_url": "https://www.tekika.io/",
   "gmail" : "michael.carrick.9797@gmail.com",
   "connectWallet": "//button[@aria-label=\"Connect Wallet\"]",
@@ -22,6 +22,8 @@
   "kumaBtn":"/html/body/div[1]/div[2]/div[2]/div[2]/div[3]/div[1]/button",
   "startQuestBtn":"/html/body/div[1]/div[2]/div[2]/div[2]/div/div[2]/div/div[3]/div/div[1]/div/div[1]/div[3]/div[2]/div/button[2]",
   "startQuest1Btn":"/html/body/div[1]/div[2]/div[2]/div[2]/div/div[2]/div/div[3]/div/div[2]/div/div[1]/div[3]/div[2]/div/button[2]",
+  "startQuest2Btn":"/html/body/div[1]/div[2]/div[2]/div[2]/div/div[2]/div/div[3]/div/div[3]/div/div[1]/div[3]/div[2]/div/button[2]",
+  "startQuest3Btn":"/html/body/div[1]/div[2]/div[2]/div[2]/div/div[2]/div/div[3]/div/div[4]/div/div[1]/div[3]/div[2]/div/button[2]",
   "coinSelection1":"/html/body/div/div[2]/div[1]/div/div/div/div/div[2]/div[1]/div/div[2]/div/div/div[1]/div/div[1]/div/div/div",
   "coinSelection2":"/html/body/div/div[2]/div[1]/div/div/div/div/div[2]/div[1]/div/div[2]/div/div/div[3]/div/div[1]/div/div/div/div[3]/svg",
   "swapBtn":"/html/body/div/div[2]/div[1]/div/div/div/div/div[2]/div[1]/div/div[2]/div/div/div[2]/div[1]/div/svg",
@@ -36,5 +38,7 @@
   "confirmAgainBtn":"/html/body/div[1]/div/div/div/div[3]/div[3]/footer/button[2]",
   "approveBtnWUSK":"/html/body/div[1]/div/div/div/div[11]/footer/button[2]",
   "verifyBtnKuma1":"/html/body/div[1]/div[2]/div[2]/div[2]/div/div[2]/div/div[3]/div/div[1]/div/div[1]/div[3]/div[2]/div/button[1]",
-  "verifyBtnKuma2":"/html/body/div[1]/div[2]/div[2]/div[2]/div/div[2]/div/div[3]/div/div[2]/div/div[1]/div[3]/div[2]/div/button[1]"
+  "verifyBtnKuma2":"/html/body/div[1]/div[2]/div[2]/div[2]/div/div[2]/div/div[3]/div/div[2]/div/div[1]/div[3]/div[2]/div/button[1]",
+  "verifyBtnKuma3":"/html/body/div[1]/div[2]/div[2]/div[2]/div/div[2]/div/div[3]/div/div[3]/div/div[1]/div[3]/div[2]/div/button[1]",
+  "verifyBtnKuma4":"/html/body/div[1]/div[2]/div[2]/div[2]/div/div[2]/div/div[3]/div/div[4]/div/div[1]/div[3]/div[2]/div/button[1]"
 }

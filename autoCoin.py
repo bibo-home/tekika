@@ -1,9 +1,17 @@
 
 import platform
 import time
+import os
+import json
 from webDriverLib import WebDriverLibrary, ConfigReader
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+
+
+reconQuest = 0
+decoyQuest = 0
+eyesQuest = 0
+surfaceQuest = 1
 
 # Đường dẫn đến ChromeDriver và profile Chrome
 target_url = "https://mail.google.com/mail/u/0/#inbox"  # Thay đổi URL này thành trang web bạn muốn điều hướng đến
@@ -13,6 +21,13 @@ config_path = "config.json"
 
 # Đọc cấu hình từ file JSON
 config = ConfigReader.read_config(config_path)
+
+# Get the current user's home directory
+home_dir = os.path.expanduser("~")
+username = os.path.basename(home_dir)
+
+# Replace the placeholder with the actual username
+config['chrome_profile_path'] = config['chrome_profile_path'].replace('{username}', username)
 
 #time to wait for action
 timeWait = config["timeWait"]
@@ -29,21 +44,40 @@ time.sleep(timeWait)
 print ("open wwebsite")
 driver.open_website(config["target_url"])
 
+# $5 - $9
+if reconQuest == 1:
+    stlosAmount = "25"
+    wUskAmount = "21"
+    verifyBtn = "/html/body/div[1]/div[2]/div[2]/div[2]/div/div[2]/div/div[3]/div/div[1]/div/div[1]/div[3]/div[2]/div/button[1]"
+# $10 - $19
+elif decoyQuest == 1:
+    stlosAmount = "60"
+    wUskAmount = "49.57"
+    verifyBtn = "/html/body/div[1]/div[2]/div[2]/div[2]/div/div[2]/div/div[3]/div/div[2]/div/div[1]/div[3]/div[2]/div/button[1]"
+# $20 - $49
+elif eyesQuest == 1:
+    stlosAmount = "100"
+    wUskAmount = "30.99"
+    verifyBtn = "/html/body/div[1]/div[2]/div[2]/div[2]/div/div[2]/div/div[3]/div/div[3]/div/div[1]/div[3]/div[2]/div/button[1]"
+# $50 - $99
+elif surfaceQuest == 1:
+    stlosAmount = "230"
+    wUskAmount = "70.8211"
+    verifyBtn = "/html/body/div[1]/div[2]/div[2]/div[2]/div/div[2]/div/div[3]/div/div[4]/div/div[1]/div[3]/div[2]/div/button[1]"
 
-# connect wallet
-button = connect_wallet_button = driver.wait_for_element(By.XPATH, config["connectWallet"])
-print("Connect Wallet button found:", connect_wallet_button)
 
-button.click()
-print("Connect Wallet button clicked")
-time.sleep(timeWait)
+def click_and_wait(xpath, wait_time, description, timeout=10):
+    try:
+        element = driver.wait_for_element(By.XPATH, xpath, timeout=timeout)
+        element.click()
+        print(f"{description} clicked")
+        time.sleep(wait_time)
+    except Exception as e:
+        print(f"Error clicking {description}: {e}")
 
-#click on metamask
-button = driver.wait_for_element(By.XPATH, config["metaMask"])
-print("MetaMask button found:", button)
-button.click()
-print("MetaMask button clicked")
-time.sleep(timeWait)
+
+click_and_wait(config["connectWallet"], timeWait, "Connect Wallet button")
+click_and_wait(config["metaMask"], timeWait, "MetaMask button")
 
 if (driver.get_number_of_windows() > 1):
     current_window_handle = driver.driver.current_window_handle
@@ -59,26 +93,14 @@ if (driver.get_number_of_windows() > 1):
         print("Password entered")
         time.sleep(timeWait)
 
-        
-        button = driver.wait_for_element(By.XPATH, config["unlockBtn"])
-        button.click()
-        print("Unlock button clicked")
-        time.sleep(timeWait)
+        click_and_wait(config["unlockBtn"], timeWait, "Unlock button")
 
         if driver.get_number_of_windows() > 1:
-            button = driver.wait_for_element(By.XPATH, config["nextBtn"])
-            button.click()
-            print("Next button clicked")
-            time.sleep(timeWait)
-
-            button = driver.wait_for_element(By.XPATH, config["confirmBtn"])
-            button.click()
-            print("Confirm button clicked")
-            time.sleep(timeWait)
+            click_and_wait(config["nextBtn"], timeWait, "Next button")
+            click_and_wait(config["confirmBtn"], timeWait, "Confirm button")
         else:
                 print("MetaMask window closed before completing actions")
-        
-        
+                
     except Exception as e:
         print(f"An error occurred: {e}")
 
@@ -97,11 +119,7 @@ else:
     print("MetaMask window not found")
 
 try:
-    print("linh")
-    button = driver.wait_for_element(By.XPATH, config["signinBtn"],timeout=1)
-    button.click()
-    print("Signin button clicked")
-    time.sleep(timeWait)
+    click_and_wait(config["signinBtn"], timeWait, "Signin button", timeout=1)
 
     if (driver.get_number_of_windows() > 1):
         driver.switch_to_window(1)
@@ -115,39 +133,21 @@ try:
 except Exception as e:
     print(f"An error occurred: {e}")
     print ("not need sign in")
-
-button = driver.wait_for_element(By.XPATH, config["avatarBtn"])
-button.click()
-print("Avatar button clicked")
-time.sleep(timeWait)
-
-button = driver.wait_for_element(By.XPATH, config["questBtn"])
-button.click()
-print("Quest button clicked")
-time.sleep(timeWait)
-
-button = driver.wait_for_element(By.XPATH, config["partnerBtn"])
-button.click()
-print("Partner button clicked")
-time.sleep(timeWait)
+    
+click_and_wait(config["avatarBtn"], timeWait, "Avatar button")
+click_and_wait(config["questBtn"], timeWait, "Quest button")
+click_and_wait(config["partnerBtn"], timeWait, "Partner button")
 
 x = 100
 y = 200
 driver.click_at_coordinates(x, y)
 
-
-button = driver.wait_for_element(By.XPATH, config["kumaBtn"])
-button.click()
-print("Kuma button clicked")
-time.sleep(timeWait)
+# Modified $SELECTION_PLACEHOLDER$ code
+click_and_wait(config["kumaBtn"], timeWait, "Kuma button")
 
 tekika_window = driver.driver.current_window_handle
 
-# button = driver.wait_for_element(By.XPATH, config["startQuestBtn"])
-button = driver.wait_for_element(By.XPATH, config["startQuest1Btn"])
-button.click()
-print("Start Quest button clicked")
-time.sleep(timeWait)
+click_and_wait(config["startQuestBtn"], timeWait, "Start Quest button")
 
 print(driver.get_number_of_windows())
 driver.get_title_of_all_windows()
@@ -199,7 +199,7 @@ def metamask_proc(driver, config, task_window, timeWait, coin="STLOS", maxAmount
             element.send_keys(Keys.CONTROL + "a")
             element.send_keys(Keys.DELETE)
             element.send_keys(maxAmount + Keys.ENTER)
-            print (">> 1. Max entered: 60")
+            print (">> 1. Max entered: " + maxAmount)
             time.sleep(timeWait)
         else:
             element = driver.wait_for_element_to_be_clickable(
@@ -269,9 +269,7 @@ def swap_token(coin1, coin2, numberCoin=25, nCount=2):
             
          
     else:
-        element = driver.wait_for_element(By.XPATH, swapBTN)
-        element.click()
-        print("Swap clicked successfully")
+        click_and_wait(swapBTN, timeWait, "Swap button")
         text1 = coin1
         text2 = coin2
 
@@ -290,11 +288,6 @@ def swap_token(coin1, coin2, numberCoin=25, nCount=2):
                 print ("> Source entered: " + numberCoin)
                 time.sleep(timeWait)
             else:
-                # element = driver.wait_for_element(By.XPATH, inputElement)
-                # print("Element found:", element)
-                # element.send_keys("8" + Keys.ENTER)
-                # print("Input entered: 8")
-                # time.sleep(timeWait)
                 element = driver.wait_for_element_to_be_clickable(By.XPATH, config["maxBtn"])
                 element.click()
                 print("> Max button clicked")
@@ -318,7 +311,7 @@ def swap_token(coin1, coin2, numberCoin=25, nCount=2):
         time.sleep(timeWait)
         
         wait_for_metamask_popup()
-        metamask_proc(driver, config, task_window, timeWait, "STLOS", "60", inputBox)
+        metamask_proc(driver, config, task_window, timeWait, "STLOS", numberCoin, inputBox)
         
         element = driver.wait_for_element_to_be_clickable(By.XPATH, config["confirmAgainBtn"])
         element.click()
@@ -343,21 +336,20 @@ def verify_task(btn):
     print("Verify clicked")
     time.sleep(timeWait)
 
-
 nCount = 1
 
 for i in range(0, 98, 1):
-    swap_token("STLOS", "wUSK", "50", nCount)
+    swap_token("STLOS", "wUSK", stlosAmount, nCount)
     time.sleep(20)
     driver.driver.switch_to.window(tekika_window)
-    verify_task(config["verifyBtnKuma2"])
+    verify_task(verifyBtn)
     nCount = 2
     time.sleep(3)
     driver.driver.switch_to.window(task_window)
-    swap_token("wUSK", "STLOS", "50", nCount)
+    swap_token("wUSK", "STLOS", wUskAmount, nCount)
     time.sleep(15)
     driver.driver.switch_to.window(tekika_window)
-    verify_task(config["verifyBtnKuma2"])
+    verify_task(verifyBtn)
     driver.driver.switch_to.window(task_window)
     time.sleep(3)
 
