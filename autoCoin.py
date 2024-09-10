@@ -40,8 +40,8 @@ if book1Quest == 1:
     slushAmount = "32"
     listVerifyBtns = [verify_basic_training_btn, verify_unite_quest_btn, verify_enemy_quest_btn]
 elif book2Quest == 1:
-    tlosAmount = "250"
-    slushAmount = "60"
+    tlosAmount = "230"
+    slushAmount = "56"
     listVerifyBtns = [verify_victory_quest_btn]
 else:
     tlosAmount = "10"
@@ -322,6 +322,7 @@ def swap_token(coin1, coin2, numberCoin="25", nCount=2):
                 
     if (coin1 == "TLOS"):
         element = driver.wait_for_element_to_be_clickable(By.XPATH, config["swapTokenToTokenBtn"])
+        time.sleep(timeWait)
         element.click()
         print("> Confirm Swap: done")
         time.sleep(timeWait)
@@ -357,14 +358,14 @@ nCount = 1
 
 for i in range(0, 98, 1):
     swap_token("TLOS", "SLUSH", tlosAmount, nCount)
-    time.sleep(20)
+    time.sleep(10)
     driver.driver.switch_to.window(tekika_window)
     verify_task(listVerifyBtns)
     nCount = 2
     time.sleep(3)
     driver.driver.switch_to.window(task_window)
     swap_token("SLUSH", "TLOS", slushAmount, nCount)
-    time.sleep(15)
+    time.sleep(10)
     driver.driver.switch_to.window(tekika_window)
     verify_task(listVerifyBtns)
     driver.driver.switch_to.window(task_window)

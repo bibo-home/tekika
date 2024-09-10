@@ -74,7 +74,7 @@ class WebDriverLibrary:
         except Exception as e:
             print("Element not found:", e)
             
-    def wait_for_element_to_be_clickable(self, by, value, timeout=30):
+    def wait_for_element_to_be_clickable(self, by, value, timeout=10):
         """
         Chờ đợi phần tử trở nên có thể click được trong một khoảng thời gian nhất định.
         
@@ -90,6 +90,7 @@ class WebDriverLibrary:
         except Exception as e:
             print( "Timeout waiting for element to be clickable:", e)
             return None
+        
     def wait_for_window_open(self, currentWindowNumber, timeout=10):
         """
         Chờ đợi một cửa sổ mới được mở ra trong một khoảng thời gian nhất định.
