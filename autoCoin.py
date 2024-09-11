@@ -222,7 +222,7 @@ try:
 except Exception as e:
     print("No daily quest:", e)
 
-time.sleep(10000)
+driver.quit_driver()
 
 
 
