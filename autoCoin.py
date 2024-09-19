@@ -190,7 +190,7 @@ time.sleep(5)
 
 tekika_window = driver.driver.current_window_handle
 
-button = driver.wait_for_element(By.XPATH, config["relic2Btn"])
+button = driver.wait_for_element(By.XPATH, config["relic3Btn"])
 button.click()
 print("Relic 2 button clicked")
 time.sleep(timeWait)
