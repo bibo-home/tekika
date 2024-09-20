@@ -235,44 +235,39 @@ print("Buy NOW clicked")
 time.sleep(5)
 
 
-
 mint_new_section = driver.driver.find_elements(By.XPATH, "/html/body/div[3]/div[3]/div/div/div[2]/h4[1]")
 if mint_new_section:
     print("Mint New section found")
 else:
     print("Mint New section not found")
 
-
-
 if mint_new_section:
     button = driver.wait_for_element(By.XPATH, config["buyFreeBtn"])
     button.click()
     print("Buy Free clicked")
     time.sleep(5)
+    
+    button = driver.wait_for_element(By.XPATH, config["buyMaxBtn"])
+    button.click()
+    print("Maximize number clicked")
+    time.sleep(timeWait)
+
+    button = driver.wait_for_element(By.XPATH, config["purchaseBtn"])
+    button.click()
+    print("Purchase clicked")
+    time.sleep(timeWait)
+
+    wait_for_metamask_altural_popup()
+
+    button = driver.wait_for_element(By.XPATH, config["confirmAgainBtn"])
+    button.click()
+    print("Confirm buy clicked")
+    time.sleep(timeWait)
+
+    time.sleep(10000)
 else:
     print("Not mintable yet")
     time.sleep(100000)
-
-button = driver.wait_for_element(By.XPATH, config["buyMaxBtn"])
-button.click()
-print("Maximize number clicked")
-time.sleep(timeWait)
-
-time.sleep(100000)
-
-button = driver.wait_for_element(By.XPATH, config["purchaseBtn"])
-button.click()
-print("Purchase clicked")
-time.sleep(timeWait)
-
-wait_for_metamask_altural_popup()
-
-button = driver.wait_for_element(By.XPATH, config["confirmAgainBtn"])
-button.click()
-print("Confirm buy clicked")
-time.sleep(timeWait)
-
-time.sleep(10000)
 
 # Ví dụ sử dụng hàm wait_for_element để chờ đợi một phần tử xuất hiện
 #element = driver.wait_for_element(By.XPATH, '//*[@id="example-element-id"]')

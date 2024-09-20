@@ -210,21 +210,6 @@ class WebDriverLibrary:
         except Exception as e:
             print("No daily claim:", e)
             return False
-     
-    # Function to check if the "Free" section exists
-    def check_free_section(self):
-        try:
-            print("Checking for Free section")
-            mint_new_section = self.driver.find_elements(By.XPATH, "/html/body/div[3]/div[3]/div/div/div[2]/h4[1]")
-            if mint_new_section:
-                print("Mint New section found")
-                return True
-            else:
-                print("Mint New section not found")
-                return False
-        except Exception as e:
-            print(f"Mint New section not found: {e}")
-            return False
                 
     def click_buttons_and_confirm(self):
         likeAndReTweet = "/html/body/div[4]/div[3]/div/section/footer/button[2]"
