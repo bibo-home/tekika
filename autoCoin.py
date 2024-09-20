@@ -234,7 +234,17 @@ button.click()
 print("Buy NOW clicked")
 time.sleep(5)
 
-if driver.check_free_section:
+
+
+mint_new_section = driver.driver.find_elements(By.XPATH, "/html/body/div[3]/div[3]/div/div/div[2]/h4[1]")
+if mint_new_section:
+    print("Mint New section found")
+else:
+    print("Mint New section not found")
+
+
+
+if mint_new_section:
     button = driver.wait_for_element(By.XPATH, config["buyFreeBtn"])
     button.click()
     print("Buy Free clicked")

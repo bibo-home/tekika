@@ -12,7 +12,7 @@ import random
 import json
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from selenium.webdriver.common.action_chains import ActionChains
-from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import NoSuchElementException, TimeoutException
 
 
 class ConfigReader:
@@ -214,11 +214,16 @@ class WebDriverLibrary:
     # Function to check if the "Free" section exists
     def check_free_section(self):
         try:
-            free_section = self.driver.wait_for_element(By.XPATH, "//h6[text()='Free']")
-            print("Free section found")
-            return True
-        except NoSuchElementException:
-            print("Free section not found")
+            print("Checking for Free section")
+            mint_new_section = self.driver.find_elements(By.XPATH, "/html/body/div[3]/div[3]/div/div/div[2]/h4[1]")
+            if mint_new_section:
+                print("Mint New section found")
+                return True
+            else:
+                print("Mint New section not found")
+                return False
+        except Exception as e:
+            print(f"Mint New section not found: {e}")
             return False
                 
     def click_buttons_and_confirm(self):
