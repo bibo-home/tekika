@@ -152,10 +152,26 @@ try:
     time.sleep(timeWait)
     tekika_window = driver.driver.current_window_handle
     
-    wait_for_metamask_popup()
+    all_windows = driver.driver.window_handles
+
+    # Wait until the number of windows increases
+    count = 0
+    while len(all_windows) == 1 and count < 10:
+        time.sleep(1)
+        all_windows = driver.driver.window_handles
+        count = count + 1
+
+    # Switch to the new window
+    for window in all_windows:
+        if (window != tekika_window):
+            print(">> Metamask popup")
+            driver.driver.switch_to.window(window)
+            time.sleep(timeWait)
+            print(">> Switched to Metamask window")
+            break
     
     
-    signBtn_extra = "/html/body/div[1]/div/div/div/div[4]/footer/button[2]"
+    signBtn_extra = "/html/body/div[1]/div/div/div/div/div[3]/button[2]"
 
     # button = driver.wait_for_element(By.XPATH, '//button[text()="Confirm"]',timeout=1)
     button = driver.wait_for_element(By.XPATH, signBtn_extra, timeout=1)
