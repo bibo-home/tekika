@@ -72,7 +72,16 @@ def wait_for_metamask_popup():
             time.sleep(timeWait)
             print(">> Switched to Metamask window")
             break
-
+        
+# Function to check if the "Free" section exists
+def check_free_section(driver):
+    try:
+        free_section = driver.wait_for_element(By.XPATH, "//h6[text()='Free']")
+        print("Free section found")
+        return True
+    except NoSuchElementException:
+        print("Free section not found")
+        return False
 
 def wait_for_metamask_altural_popup(timeout=10):
     all_windows = driver.driver.window_handles
@@ -192,7 +201,7 @@ tekika_window = driver.driver.current_window_handle
 
 button = driver.wait_for_element(By.XPATH, config["relic3Btn"])
 button.click()
-print("Relic 2 button clicked")
+print("Relic 3 button clicked")
 time.sleep(timeWait)
 
 # Ensure new windows is open
@@ -235,15 +244,21 @@ button.click()
 print("Buy NOW clicked")
 time.sleep(5)
 
-button = driver.wait_for_element(By.XPATH, config["buyFreeBtn"])
-button.click()
-print("Buy Free clicked")
-time.sleep(5)
+if check_free_section(driver):
+    button = driver.wait_for_element(By.XPATH, config["buyFreeBtn"])
+    button.click()
+    print("Buy Free clicked")
+    time.sleep(5)
+else:
+    print("Not mintable yet")
+    time.sleep(100000)
 
 button = driver.wait_for_element(By.XPATH, config["buyMaxBtn"])
 button.click()
 print("Maximize number clicked")
 time.sleep(timeWait)
+
+time.sleep(100000)
 
 button = driver.wait_for_element(By.XPATH, config["purchaseBtn"])
 button.click()
