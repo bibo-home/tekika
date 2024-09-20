@@ -72,16 +72,6 @@ def wait_for_metamask_popup():
             time.sleep(timeWait)
             print(">> Switched to Metamask window")
             break
-        
-# Function to check if the "Free" section exists
-def check_free_section(driver):
-    try:
-        free_section = driver.wait_for_element(By.XPATH, "//h6[text()='Free']")
-        print("Free section found")
-        return True
-    except NoSuchElementException:
-        print("Free section not found")
-        return False
 
 def wait_for_metamask_altural_popup(timeout=10):
     all_windows = driver.driver.window_handles
@@ -244,7 +234,7 @@ button.click()
 print("Buy NOW clicked")
 time.sleep(5)
 
-if check_free_section(driver):
+if driver.check_free_section:
     button = driver.wait_for_element(By.XPATH, config["buyFreeBtn"])
     button.click()
     print("Buy Free clicked")

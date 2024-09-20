@@ -12,6 +12,8 @@ import random
 import json
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from selenium.webdriver.common.action_chains import ActionChains
+from selenium.common.exceptions import NoSuchElementException
+
 
 class ConfigReader:
     @staticmethod
@@ -207,6 +209,16 @@ class WebDriverLibrary:
             return False
         except Exception as e:
             print("No daily claim:", e)
+            return False
+     
+    # Function to check if the "Free" section exists
+    def check_free_section(self):
+        try:
+            free_section = self.driver.wait_for_element(By.XPATH, "//h6[text()='Free']")
+            print("Free section found")
+            return True
+        except NoSuchElementException:
+            print("Free section not found")
             return False
                 
     def click_buttons_and_confirm(self):
