@@ -36,7 +36,7 @@ verify_enemy_quest_btn = config.get("verifyEnemyQuestBtn", "")
 verify_victory_quest_btn = config.get("verifyVictoryQuestBtn", "")
 
 if book1Quest == 1:
-    tlosAmount = "130"
+    tlosAmount = "100"
     slushAmount = "32"
     listVerifyBtns = [verify_basic_training_btn, verify_unite_quest_btn, verify_enemy_quest_btn]
 elif book2Quest == 1:
@@ -136,15 +136,35 @@ try:
     print("Signin button clicked")
     time.sleep(timeWait)
 
-    if (driver.get_number_of_windows() > 1):
-        driver.switch_to_window(1)
-        button = driver.wait_for_element(By.XPATH, '//button[text()="Confirm"]',timeout=1)
-        button.click()
-        time.sleep(timeWait)
-        driver.close_window()
-        driver.switch_to_window(0)
-    else:
-        print("not need confirmed")
+    tekika_window = driver.driver.current_window_handle
+    
+    all_windows = driver.driver.window_handles
+
+    # Wait until the number of windows increases
+    count = 0
+    while len(all_windows) == 1 and count < 10:
+        time.sleep(1)
+        all_windows = driver.driver.window_handles
+        count = count + 1
+
+    # Switch to the new window
+    for window in all_windows:
+        if (window != tekika_window):
+            print(">> Metamask popup")
+            driver.driver.switch_to.window(window)
+            time.sleep(timeWait)
+            print(">> Switched to Metamask window")
+            break
+    
+    
+    signBtn_extra = "/html/body/div[1]/div/div/div/div/div[3]/button[2]"
+
+    # button = driver.wait_for_element(By.XPATH, '//button[text()="Confirm"]',timeout=1)
+    button = driver.wait_for_element(By.XPATH, signBtn_extra, timeout=1)
+    button.click()
+    time.sleep(timeWait)
+    driver.switch_to_window(tekika_window)
+    
 except Exception as e:
     print(f"An error occurred: {e}")
     print ("not need sign in")
@@ -352,17 +372,17 @@ def verify_task(listBtns):
         button = driver.wait_for_element(By.XPATH, btn)
         button.click()
         print("Verify clicked")
-        time.sleep(15)
+        time.sleep(5)
 
 nCount = 1
 
 for i in range(0, 98, 1):
     swap_token("TLOS", "SLUSH", tlosAmount, nCount)
     time.sleep(10)
-    driver.driver.switch_to.window(tekika_window)
-    verify_task(listVerifyBtns)
+    #driver.driver.switch_to.window(tekika_window)
+    #verify_task(listVerifyBtns)
     nCount = 2
-    time.sleep(3)
+    #time.sleep(3)
     driver.driver.switch_to.window(task_window)
     swap_token("SLUSH", "TLOS", slushAmount, nCount)
     time.sleep(10)
