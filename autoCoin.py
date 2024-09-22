@@ -341,6 +341,9 @@ def swap_token(coin1, coin2, numberCoin="25", nCount=2):
         #element = driver.wait_for_element_to_be_clickable(By.XPATH, config["previewBtn"])
                 
     if (coin1 == "TLOS"):
+        if (nCount == 1):
+            time.sleep(10)
+    
         element = driver.wait_for_element_to_be_clickable(By.XPATH, config["swapTokenToTokenBtn"])
         time.sleep(timeWait)
         element.click()
@@ -348,9 +351,9 @@ def swap_token(coin1, coin2, numberCoin="25", nCount=2):
         time.sleep(timeWait)
         
         wait_for_metamask_popup()
-        metamask_proc(driver, config, task_window, timeWait, "TLOS", numberCoin, inputBox)
+        #metamask_proc(driver, config, task_window, timeWait, "TLOS", numberCoin, inputBox)
         
-        element = driver.wait_for_element_to_be_clickable(By.XPATH, config["confirmAgainBtn"])
+        element = driver.wait_for_element_to_be_clickable(By.XPATH, config["confirmBtn1"])
         element.click()
         print(">> Confirm Again button clicked")
         time.sleep(timeWait)
@@ -362,7 +365,7 @@ def swap_token(coin1, coin2, numberCoin="25", nCount=2):
         wait_for_metamask_popup()
         metamask_proc(driver, config, task_window, timeWait, "SLUSH")
         
-        element = driver.wait_for_element_to_be_clickable(By.XPATH, config["confirmAgainBtn"])
+        element = driver.wait_for_element_to_be_clickable(By.XPATH, config["confirmBtn1"])
         element.click()
         print("Confirm Again button clicked")
         time.sleep(timeWait)
