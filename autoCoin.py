@@ -205,9 +205,9 @@ time.sleep(5)
 
 tekika_window = driver.driver.current_window_handle
 
-button = driver.wait_for_element(By.XPATH, config["relic3Btn"])
+button = driver.wait_for_element(By.XPATH, config["relic4Btn"])
 button.click()
-print("Relic 3 button clicked")
+print("Relic 4 button clicked")
 time.sleep(timeWait)
 
 # Ensure new windows is open
