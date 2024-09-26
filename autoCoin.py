@@ -40,12 +40,12 @@ if contactQuest == 1:
     stlosAmount = "21"
     listVerifyBtns = "/html/body/div[1]/div[2]/div[2]/div[2]/div/div[2]/div/div[3]/div/div[2]/div/div[1]/div[3]/div[2]/div/button[1]"
 elif umbaQuest == 1:
-    tlosAmount = "60"
-    stlosAmount = "49.57"
+    tlosAmount = "40"
+    stlosAmount = "32.97"
     listVerifyBtns = "/html/body/div[1]/div[2]/div[2]/div[2]/div/div[2]/div/div[3]/div/div[4]/div/div[1]/div[3]/div[2]/div/button[1]"
 elif veiledQuest == 1:
-    tlosAmount = "265"
-    stlosAmount = "218.981"
+    tlosAmount = "180"
+    stlosAmount = "148"
     listVerifyBtns = "/html/body/div[1]/div[2]/div[2]/div[2]/div/div[2]/div/div[3]/div/div[6]/div/div[1]/div[3]/div[2]/div/button[1]"
 else:
     tlosAmount = "10"
@@ -379,7 +379,7 @@ def swap_token(coin1, coin2, numberCoin=25, nCount=2):
         print("Approve button clicked")
 
         wait_for_metamask_popup()
-        metamask_proc(driver, config, task_window, timeWait, "wUSK")
+        # metamask_proc(driver, config, task_window, timeWait, "TLOS", numberCoin, inputBox)
         
         element = driver.wait_for_element_to_be_clickable(By.XPATH, config["confirmAgainBtn"])
         element.click()
@@ -395,16 +395,17 @@ def verify_task(btn):
 
 nCount = 1
 
-for i in range(0, 100, 1):
+for iii in range(198):
+    print(f"Iteration {iii+1}/198")
     swap_token("TLOS", "STLOS", tlosAmount, nCount)
-    time.sleep(20)
-    driver.driver.switch_to.window(tekika_window)
-    verify_task(listVerifyBtns)
+    time.sleep(10)
+    # driver.driver.switch_to.window(tekika_window)
+    # verify_task(listVerifyBtns)
     nCount = 2
     time.sleep(3)
     driver.driver.switch_to.window(task_window)
     swap_token("STLOS", "TLOS", stlosAmount, nCount)
-    time.sleep(15)
+    time.sleep(10)
     driver.driver.switch_to.window(tekika_window)
     verify_task(listVerifyBtns)
     driver.driver.switch_to.window(task_window)
