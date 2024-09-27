@@ -275,7 +275,7 @@ if mint_new_section:
 
     wait_for_metamask_altural_popup()
 
-    button = driver.wait_for_element(By.XPATH, config["confirmAgainBtn"])
+    button = driver.wait_for_element(By.XPATH, config["confirmBtn1"])
     button.click()
     print("Confirm buy clicked")
     time.sleep(timeWait)
