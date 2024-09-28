@@ -281,7 +281,7 @@ while (1):
         break;
     else:
         print("Not mintable yet")
-        time.sleep(10)
+        time.sleep(300)
 
     driver.driver.refresh()
     print("Refresh NFT window")
