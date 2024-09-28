@@ -280,12 +280,13 @@ while (1):
         button.click()
         print("Confirm buy clicked")
         time.sleep(timeWait)
-
         break;
     else:
         print("Not mintable yet")
-        time.sleep(100000)
+        time.sleep(10)
 
+    driver.driver.refresh()
+    print("Refresh NFT window")
 
 time.sleep(10000)
 # Ví dụ sử dụng hàm wait_for_element để chờ đợi một phần tử xuất hiện
