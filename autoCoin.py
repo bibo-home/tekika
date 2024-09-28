@@ -267,8 +267,6 @@ while (1):
         print("Maximize number clicked")
         time.sleep(timeWait)
 
-        time.sleep(100000)
-
         button = driver.wait_for_element(By.XPATH, config["purchaseBtn"])
         button.click()
         print("Purchase clicked")
