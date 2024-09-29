@@ -221,28 +221,28 @@ if (driver.get_number_of_windows() > 1):
 
 altura_window = driver.driver.current_window_handle
     
-# try:
-#     wait_for_metamask_altural_popup()
-#     button = driver.wait_for_element(By.XPATH, config["alturaMetaSignBtn"])
-#     button.click()
-#     print("Altura Meta Sign clicked")
-#     time.sleep(1)
+try:
+    wait_for_metamask_altural_popup()
+    button = driver.wait_for_element(By.XPATH, config["alturaMetaSignBtn"])
+    button.click()
+    print("Altura Meta Sign clicked")
+    time.sleep(1)
 
-#     all_windows = driver.driver.window_handles
-#     # Wait until the number of windows decreases
-#     while len(all_windows) == 1:
-#         time.sleep(1)
-#         all_windows = driver.driver.window_handles
+    all_windows = driver.driver.window_handles
+    # Wait until the number of windows decreases
+    while len(all_windows) == 1:
+        time.sleep(1)
+        all_windows = driver.driver.window_handles
 
-#     driver.switch_to_window(1)
-#     print("Switched back to NFT window")
-#     time.sleep(2)
-#     # Reload the page to ensure can click on the button
-#     driver.driver.refresh()
-#     print("Refresh NFT window")
-#     time.sleep(5)
-# except Exception as e:
-#     print(f"No metamask popup: {e}")
+    driver.switch_to_window(1)
+    print("Switched back to NFT window")
+    time.sleep(2)
+    # Reload the page to ensure can click on the button
+    driver.driver.refresh()
+    print("Refresh NFT window")
+    time.sleep(5)
+except Exception as e:
+    print(f"No metamask popup: {e}")
 
 while (1):
     button = driver.wait_for_element(By.XPATH, config["buyNowBtn"])
