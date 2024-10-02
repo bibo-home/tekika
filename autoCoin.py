@@ -53,8 +53,8 @@ elif umbaQuest == 1:
     stlosAmount = "32.97"
     listVerifyBtns = "/html/body/div[1]/div[2]/div[2]/div[2]/div/div[2]/div/div[3]/div/div[4]/div/div[1]/div[3]/div[2]/div/button[1]"
 elif veiledQuest == 1:
-    tlosAmount = "180"
-    stlosAmount = "148.37"
+    tlosAmount = "195"
+    stlosAmount = "160.3"
     listVerifyBtns = "/html/body/div[1]/div[2]/div[2]/div[2]/div/div[2]/div/div[3]/div/div[6]/div/div[1]/div[3]/div[2]/div/button[1]"
 else:
     tlosAmount = "10"
@@ -392,7 +392,7 @@ for iii in range(150):
     driver.driver.switch_to.window(tekika_window)
     verify_task(listVerifyBtns)
     driver.driver.switch_to.window(task_window)
-    time.sleep(3)
+    time.sleep(10)
 
 
 time.sleep(10000)
