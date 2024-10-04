@@ -205,9 +205,9 @@ time.sleep(5)
 
 tekika_window = driver.driver.current_window_handle
 
-button = driver.wait_for_element(By.XPATH, config["relic4Btn"])
+button = driver.wait_for_element(By.XPATH, config["relic3Btn"])
 button.click()
-print("Relic 4 button clicked")
+print("Relic 3 button clicked")
 time.sleep(timeWait)
 
 # Ensure new windows is open
@@ -245,11 +245,15 @@ except Exception as e:
     print(f"No metamask popup: {e}")
 
 while (1):
-    button = driver.wait_for_element(By.XPATH, config["buyNowBtn"])
-    button.click()
-    print("Buy NOW clicked")
-    time.sleep(5)
+    try:
+        button = driver.wait_for_element(By.XPATH, config["buyNowBtn"])
+        button.click()
+        print("Buy NOW clicked")
+        time.sleep(5)
+    except Exception as e:
+        print("Buy NOW button not found")
 
+    time.sleep(100000)
 
     mint_new_section = driver.driver.find_elements(By.XPATH, "/html/body/div[3]/div[3]/div/div/div[2]/h4[1]")
     if mint_new_section:
