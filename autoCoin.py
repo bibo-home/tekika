@@ -8,10 +8,10 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 
 
-reconQuest = 0
+reconQuest = 1
 decoyQuest = 0
 eyesQuest = 0
-surfaceQuest = 1
+surfaceQuest = 0
 
 # Đường dẫn đến ChromeDriver và profile Chrome
 target_url = "https://mail.google.com/mail/u/0/#inbox"  # Thay đổi URL này thành trang web bạn muốn điều hướng đến
@@ -46,8 +46,8 @@ driver.open_website(config["target_url"])
 
 # $5 - $9
 if reconQuest == 1:
-    stlosAmount = "25"
-    wUskAmount = "21"
+    stlosAmount = "17"
+    wUskAmount = "6.25956"
     verifyBtn = "/html/body/div[1]/div[2]/div[2]/div[2]/div/div[2]/div/div[3]/div/div[1]/div/div[1]/div[3]/div[2]/div/button[1]"
 # $10 - $19
 elif decoyQuest == 1:
@@ -338,13 +338,10 @@ def verify_task(btn):
 
 nCount = 1
 
-for i in range(0, 98, 1):
+for iii in range(99):
     swap_token("STLOS", "wUSK", stlosAmount, nCount)
     time.sleep(20)
-    driver.driver.switch_to.window(tekika_window)
-    verify_task(verifyBtn)
     nCount = 2
-    time.sleep(3)
     driver.driver.switch_to.window(task_window)
     swap_token("wUSK", "STLOS", wUskAmount, nCount)
     time.sleep(15)
