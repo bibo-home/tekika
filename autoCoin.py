@@ -8,8 +8,10 @@ from selenium.webdriver.common.keys import Keys
 partner = "sym"
 
 contactQuest = 0
-umbaQuest = 1
+umbaQuest = 0
 veiledQuest = 0
+finalQuest = 1
+meetQuest = 0
 
 # Đường dẫn đến ChromeDriver và profile Chrome
 target_url = "https://mail.google.com/mail/u/0/#inbox"  # Thay đổi URL này thành trang web bạn muốn điều hướng đến
@@ -47,6 +49,14 @@ elif veiledQuest == 1:
     tlosAmount = "180"
     stlosAmount = "148"
     listVerifyBtns = "/html/body/div[1]/div[2]/div[2]/div[2]/div/div[2]/div/div[3]/div/div[6]/div/div[1]/div[3]/div[2]/div/button[1]"
+elif finalQuest == 1:
+    tlosAmount = "400"
+    stlosAmount = "328.188"
+    listVerifyBtns = "/html/body/div[1]/div[2]/div[2]/div[2]/div/div[2]/div/div[3]/div/div[11]/div/div[1]/div[3]/div[2]/div/button[1]"
+elif meetQuest == 1:
+    tlosAmount = "950"
+    stlosAmount = "778.96"
+    listVerifyBtns = "/html/body/div[1]/div[2]/div[2]/div[2]/div/div[2]/div/div[3]/div/div[12]/div/div[1]/div[3]/div[2]/div/button[1]"
 else:
     tlosAmount = "10"
     stlosAmount = "5"
@@ -395,8 +405,8 @@ def verify_task(btn):
 
 nCount = 1
 
-for iii in range(198):
-    print(f"Iteration {iii+1}/198")
+for iii in range(32):
+    print(f"Iteration {iii+1}/32")
     swap_token("TLOS", "STLOS", tlosAmount, nCount)
     time.sleep(10)
     # driver.driver.switch_to.window(tekika_window)
